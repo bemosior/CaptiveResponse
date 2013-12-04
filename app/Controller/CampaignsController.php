@@ -1,9 +1,10 @@
 <?php
+
+
 class CampaignsController extends AppController {
 
     public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow('index');
+        parent::beforeFilter(); 
     }
 
     public function index() {
