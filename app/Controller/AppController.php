@@ -47,7 +47,7 @@ class AppController extends Controller {
             AuthComponent::ALL => array('userModel' => 'Member'),
             'Cas'
         );
-        $this->Auth->allow('*');
+        
     }
 
     public $theme = "Cakestrap";

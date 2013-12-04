@@ -5,7 +5,9 @@
  * (https://github.com/jcu-eresearch/CAS4Cake)
  */
 
-App::import('Vendor', 'CAS', array('file' => 'CAS-1.3.2'.DS.'CAS-1.3.2'.DS.'CAS.php'));
+App::uses('BaseAuthenticate', 'Controller/Component/Auth');
+
+App::import('Vendor', 'CAS/CAS');
 
 class CasAuthenticate {
     private $_Collection = NULL;
@@ -21,7 +23,7 @@ class CasAuthenticate {
                        Configure::read('CAS.hostname'),
                        Configure::read('CAS.port'),
                        Configure::read('CAS.uri'));
-	phpCAS::setNoCasServerValidation();
+	    phpCAS::setNoCasServerValidation();
 
 //        phpCAS::setCasServerCACert(Configure::read('CAS.cert_path'));
     }
@@ -37,6 +39,15 @@ class CasAuthenticate {
 
     public function getUser($request) {
         return FALSE;
+        /* Not sure if this makes sense yet.
+
+            $username = env('PHP_AUTH_USER');
+        
+            if (empty($username)) {
+                return false;
+            }
+            return $this->_findUser($username);
+        */
     }
 
     public function logout($user) {
