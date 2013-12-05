@@ -16,21 +16,21 @@ class CampaignRole extends AppModel {
             'message'           => 'The user role is required',
         ),
         'grace_period' => array(
-            'rule-1' => array(
+            'ruleTime' => array(
                 'rule'              => array('timeInWords'),
                 'message'           => 'The grace period must be a valid phrase, such as "12 days" or "2 hours"',
              ),
-            'rule-2' => array(
+            'ruleLength' => array(
                 'rule'              => array('maxLength', 32),
                 'message'           => 'The grace period is too lengthy',
              ),
         ),
         'reminder_interval' => array(
-            'rule-1' => array(
+            'ruleTime' => array(
                 'rule'              => array('timeInWords'),
                 'message'           => 'The reminder interval must be a valid phrase, such as "12 days" or "2 hours"',
              ),
-            'rule-2' => array(
+            'ruleLength' => array(
                 'rule'              => array('maxLength', 32),
                 'message'           => 'The reminder interval is too lengthy',
              ),
@@ -44,7 +44,9 @@ class CampaignRole extends AppModel {
         $value = array_values($check);
         $phrase = split (" ", $value[0]);
 
-        $validUnits = array('minutes', 'hours', 'days', 'months', 'years');
+        //There's probably a smarter way to handle pluralization
+        $validUnits = array('minute',  'hour',  'day',  'month', 'year',
+                            'minutes', 'hours', 'days', 'months', 'years');
         return count($phrase) == 2 &&               // exactly 2 components
                is_numeric($phrase[0]) &&             // component 1 is numeric
                $phrase[0] > 0 &&                    // component 1 is positive
