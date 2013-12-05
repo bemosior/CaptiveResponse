@@ -4,6 +4,7 @@
         <th>Campaign</th>
         <th>User Role</th>
         <th>Grace Period</th>
+        <th>Reminder Interval</th>
         <th></th>
     </tr>
 
@@ -19,6 +20,7 @@
 
         <td><?php echo $campaign_role['CampaignRole']['user_role_id']; ?></td>
         <td><?php echo $campaign_role['CampaignRole']['grace_period']; ?></td>
+        <td><?php echo $campaign_role['CampaignRole']['reminder_interval']; ?></td>
         <td>
             <?php echo $this->Form->postLink('Delete', 
                 array('action' => 'delete', $campaign_role['CampaignRole']['id']), null,  
