@@ -5,28 +5,22 @@ Captive Response is a web application with the purpose of delivering information
 
 Requirements
 -------------------------
-+  PHP 5.4 (not verified)
++  PHP 5.4
 +  Apache
-+  MySQL (not yet fully required)
++  MySQL
 +  Jasig CAS with the Unicon-developed intercept logic (to be added later)
 
 Project Status
 -------------------------
-CaptiveResponse is being actively developed for Shippensburg University of Pennsylvania, with a completion goal of January 2014.
+CaptiveResponse is being actively developed for Shippensburg University of Pennsylvania, with a 1.0.0 completion goal of January 2014.
 
-Simplified Development Roadmap
-- [x] Twitter Bootstrap 3 Theming Base
-- [x] Integration of CAS Authentication
-- [x] Database Design
-- [ ] Database Functional Implementation
-- [ ] Development of Administrative User Interface
-- [ ] Development of Campaign User Interface
+See the [tentative development roadmap](https://github.com/bemosior/CaptiveResponse/wiki/Development-Roadmap-(Tentative)) for more up-to-date information.
 
 Notes
 -------------------------
-When we write installation documentation, one of the steps will be copying ```app/Config/core.php.default``` to ```app/Config/core.php``` and modifying the target file to match your environment (including CAS configuration). 
+Installation will be eventually be performed through a web self-install process, much like many open-source CMSs. 
 
-All routes except the API view will currently be directed to CAS for authentication.
+All routes except the API view are currently directed to CAS for authentication.
 
-For dummy API calls:
+API call example (based on current non-functional code):
 ```$URL-TO-INSTALL/api/CAS-USER-ID``` will return 1, while ```$URL-TO-INSTALL/api/SOME-USER``` and any other value will return 0.
