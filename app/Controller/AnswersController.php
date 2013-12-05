@@ -17,7 +17,11 @@ class AnswersController extends AppController {
         if (!$this->Answer->exists()) {
             throw new NotFoundException(__('Invalid answer'));
         }
-        //$this->set('answer', $this->Answer->read(null, $id));
+
+        //Retrieve questions for pre-population of FK "question_id"
+        $this->loadModel('Question');
+        $this->set('questions', $this->Question->find('list'));
+
         $this->request->data = $this->Answer->read(null, $id);
     }
 
@@ -30,6 +34,10 @@ class AnswersController extends AppController {
             }
             $this->Session->setFlash(__('The answer could not be saved. Please, try again.'));
         }
+        //Retrieve questions for pre-population of FK "question_id"
+        $this->loadModel('Question');
+        $this->set('questions', $this->Question->find('list'));
+
     }
 
     public function edit($id = null) {
@@ -44,6 +52,10 @@ class AnswersController extends AppController {
             }
             $this->Session->setFlash(__('The answer could not be saved. Please, try again.'));
         } else {
+            //Retrieve questions for pre-population of FK "question_id"
+            $this->loadModel('Question');
+            $this->set('questions', $this->Question->find('list'));
+
             $this->request->data = $this->Answer->read(null, $id);
         }
     }
