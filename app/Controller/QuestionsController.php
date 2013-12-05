@@ -8,54 +8,68 @@ class QuestionsController extends AppController {
     }
 
     public function index() {
-        $this->Questions->recursive = 0;
+        $this->Question->recursive = 0;
         $this->set('questions', $this->paginate());
     }
 
     public function view($id = null) {
-        $this->Questions->id = $id;
-        if (!$this->Questions->exists()) {
+        $this->Question->id = $id;
+        if (!$this->Question->exists()) {
             throw new NotFoundException(__('Invalid question'));
         }
-        //$this->set('question', $this->Questions->read(null, $id));
-        $this->request->data = $this->Questions->read(null, $id);
+
+        //Retrieve campaigns for pre-population of FK "campaign_id"
+        $this->loadModel('Campaign');
+        $this->set('campaigns', $this->Campaign->find('list'));
+
+        $this->request->data = $this->Question->read(null, $id);
     }
 
     public function add() {
         if ($this->request->is('post')) {
-            $this->Questions->create();
-            if ($this->Questions->save($this->request->data)) {
+            $this->Question->create();
+            if ($this->Question->save($this->request->data)) {
                 $this->Session->setFlash(__('The question has been saved'));
                 return $this->redirect(array('action' => 'index'));
             }
             $this->Session->setFlash(__('The question could not be saved. Please, try again.'));
         }
+
+        //Retrieve campaigns for pre-population of FK "campaign_id"
+        $this->loadModel('Campaign');
+        $this->set('campaigns', $this->Campaign->find('list'));
+
     }
 
     public function edit($id = null) {
-        $this->Questions->id = $id;
-        if (!$this->Questions->exists()) {
+        $this->Question->id = $id;
+        if (!$this->Question->exists()) {
             throw new NotFoundException(__('Invalid question'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->Questions->save($this->request->data)) {
+            if ($this->Question->save($this->request->data)) {
                 $this->Session->setFlash(__('The question has been saved'));
                 return $this->redirect(array('action' => 'index'));
             }
             $this->Session->setFlash(__('The question could not be saved. Please, try again.'));
         } else {
-            $this->request->data = $this->Questions->read(null, $id);
+
+            //Retrieve campaigns for pre-population of FK "campaign_id"
+            $this->loadModel('Campaign');
+            $this->set('campaigns', $this->Campaign->find('list'));
+            
+            $this->request->data = $this->Question->read(null, $id);
         }
     }
 
     public function delete($id = null) {
         $this->request->onlyAllow('post');
 
-        $this->Questions->id = $id;
-        if (!$this->Questions->exists()) {
+        $this->Question->id = $id;
+        if (!$this->Question->exists()) {
             throw new NotFoundException(__('Invalid question'));
         }
-        if ($this->Questions->delete()) {
+        if ($this->Question->delete()) {
             $this->Session->setFlash(__('Questions deleted'));
             return $this->redirect(array('action' => 'index'));
         }
