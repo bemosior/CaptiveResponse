@@ -43,9 +43,15 @@ class QuestionsController extends AppController {
 
     public function edit($id = null) {
         $this->Question->id = $id;
+        
         if (!$this->Question->exists()) {
             throw new NotFoundException(__('Invalid question'));
         }
+        
+        //Retrieve campaigns for pre-population of FK "campaign_id"
+        $this->loadModel('Campaign');
+        $this->set('campaigns', $this->Campaign->find('list'));
+
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Question->save($this->request->data)) {
                 $this->Session->setFlash(__('The question has been saved'));
@@ -53,10 +59,6 @@ class QuestionsController extends AppController {
             }
             $this->Session->setFlash(__('The question could not be saved. Please, try again.'));
         } else {
-
-            //Retrieve campaigns for pre-population of FK "campaign_id"
-            $this->loadModel('Campaign');
-            $this->set('campaigns', $this->Campaign->find('list'));
             
             $this->request->data = $this->Question->read(null, $id);
         }

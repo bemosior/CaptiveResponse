@@ -17,6 +17,11 @@ class AttemptsController extends AppController {
         if (!$this->Campaign->exists()) {
             throw new NotFoundException(__('Invalid attempt'));
         }
+    
+        //Retrieve campaigns for pre-population of FK "campaign_id"
+        $this->loadModel('Campaign');
+        $this->set('campaigns', $this->Campaign->find('list'));
+
         //$this->set('attempt', $this->Campaign->read(null, $id));
         $this->request->data = $this->Campaign->read(null, $id);
     }
@@ -30,13 +35,23 @@ class AttemptsController extends AppController {
             }
             $this->Session->setFlash(__('The attempt could not be saved. Please, try again.'));
         }
+
+        //Retrieve campaigns for pre-population of FK "campaign_id"
+        $this->loadModel('Campaign');
+        $this->set('campaigns', $this->Campaign->find('list'));
     }
 
     public function edit($id = null) {
         $this->Campaign->id = $id;
+
         if (!$this->Campaign->exists()) {
             throw new NotFoundException(__('Invalid attempt'));
-        }
+        }        
+
+        //Retrieve campaigns for pre-population of FK "campaign_id"
+        $this->loadModel('Campaign');
+        $this->set('campaigns', $this->Campaign->find('list'));
+
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Campaign->save($this->request->data)) {
                 $this->Session->setFlash(__('The attempt has been saved'));
