@@ -17,7 +17,8 @@ class CampaignsController extends AppController {
         if (!$this->Campaign->exists()) {
             throw new NotFoundException(__('Invalid campaign'));
         }
-        $this->set('campaign', $this->Campaign->read(null, $id));
+        //$this->set('campaign', $this->Campaign->read(null, $id));
+        $this->request->data = $this->Campaign->read(null, $id);
     }
 
     public function add() {
