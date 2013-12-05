@@ -1,7 +1,7 @@
 <?php
 App::uses('AuthComponent', 'Controller/Component');
 
-class Attempts extends AppModel {
+class Attempt extends AppModel {
     public $validate = array(
         'user_identifier' => array(
             'required'          => true,
@@ -30,7 +30,7 @@ class Attempts extends AppModel {
         'score' => array(
             'required'          => true,
             'allowEmpty'        => false,
-            'rule'              => array('naturalNumber'),
+            'rule'              => array('decimal'),
             'message'           => 'The score is required',
         ),
         'attempts' => array(
