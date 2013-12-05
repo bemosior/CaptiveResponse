@@ -42,12 +42,13 @@ CREATE TABLE `user_roles`(
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
-CREATE TABLE `campaign_roles`( 
+CREATE TABLE `campaign_roles`(
+	`id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`campaign_id` SMALLINT UNSIGNED NOT NULL, 
 	`user_role_id` TINYINT UNSIGNED NOT NULL, 
 	`grace_period` TIME NOT NULL,
 	`reminder_interval` TIME NOT NULL,
-	PRIMARY KEY (`campaign_id`, `user_role_id`),
+	PRIMARY KEY (`id`),
 	FOREIGN KEY (`campaign_id`) REFERENCES `campaigns` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (`user_role_id`) REFERENCES `user_roles` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE = InnoDB;
@@ -56,7 +57,7 @@ CREATE TABLE `attempts`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, 
 	`user_identifier` VARCHAR(64) NOT NULL, 
 	`campaign_id` SMALLINT UNSIGNED NOT NULL,
-	`start_time` DATE NOT NULL, 
+	`start_time` DATETIME NOT NULL, 
 	`last_skip` DATETIME,
 	`score` FLOAT(4,2) NOT NULL, 
 	`attempts` TINYINT UNSIGNED NOT NULL,
