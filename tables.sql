@@ -46,8 +46,8 @@ CREATE TABLE `campaign_roles`(
 	`id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`campaign_id` SMALLINT UNSIGNED NOT NULL, 
 	`user_role_id` TINYINT UNSIGNED NOT NULL, 
-	`grace_period` TIME NOT NULL,
-	`reminder_interval` TIME NOT NULL,
+	`grace_period` VARCHAR(32) NOT NULL,
+	`reminder_interval` VARCHAR(32) NOT NULL,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`campaign_id`) REFERENCES `campaigns` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (`user_role_id`) REFERENCES `user_roles` (`id`) ON UPDATE CASCADE ON DELETE CASCADE

@@ -17,7 +17,15 @@ class CampaignRolesController extends AppController {
         if (!$this->CampaignRole->exists()) {
             throw new NotFoundException(__('Invalid campaign_role'));
         }
-        //$this->set('campaign_role', $this->CampaignRole->read(null, $id));
+
+        //Retrieve campaigns for pre-population of FK "campaign_id"
+        $this->loadModel('Campaign');
+        $this->set('campaigns', $this->Campaign->find('list'));
+
+        //Retrieve user roles for pre-population of FK "user_role_id"
+        $this->loadModel('UserRole');
+        $this->set('userRoles', $this->UserRole->find('list'));
+
         $this->request->data = $this->CampaignRole->read(null, $id);
     }
 
@@ -30,6 +38,14 @@ class CampaignRolesController extends AppController {
             }
             $this->Session->setFlash(__('The campaign_role could not be saved. Please, try again.'));
         }
+
+        //Retrieve campaigns for pre-population of FK "campaign_id"
+        $this->loadModel('Campaign');
+        $this->set('campaigns', $this->Campaign->find('list'));
+
+        //Retrieve user roles for pre-population of FK "user_role_id"
+        $this->loadModel('UserRole');
+        $this->set('userRoles', $this->UserRole->find('list'));
     }
 
     public function edit($id = null) {
@@ -44,6 +60,15 @@ class CampaignRolesController extends AppController {
             }
             $this->Session->setFlash(__('The campaign_role could not be saved. Please, try again.'));
         } else {
+
+            //Retrieve campaigns for pre-population of FK "campaign_id"
+            $this->loadModel('Campaign');
+            $this->set('campaigns', $this->Campaign->find('list'));
+
+            //Retrieve user roles for pre-population of FK "user_role_id"
+            $this->loadModel('UserRole');
+            $this->set('userRoles', $this->UserRole->find('list'));
+
             $this->request->data = $this->CampaignRole->read(null, $id);
         }
     }
