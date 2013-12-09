@@ -2,6 +2,9 @@
 App::uses('AuthComponent', 'Controller/Component');
 
 class UserRole extends AppModel {
+
+    public $displayField = 'local_name';
+
     public $validate = array(
         'local_name' => array(
             'required'          => true,
