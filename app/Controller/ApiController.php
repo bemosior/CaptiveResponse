@@ -4,7 +4,7 @@
  */
 class ApiController extends AppController {
 
-	public $components = array('RequestHandler');
+	public $components = array('RequestHandler', 'CampaignManager');
 	public $layout = 'api';
 
     public function beforeFilter() {
@@ -16,29 +16,20 @@ class ApiController extends AppController {
 
     }
 
-    public function view($id) {
-/*
-        $this->Api->id = $id;
-        if (!$this->Api->exists()) {
-            throw new NotFoundException(__('Invalid user'));
-        }
-        $this->set('api', $this->Api->read(null, $id));
-*/
-        $return = 0;
+    public function view($identifier = null, $membership = null) {
+        
+        $identifier = utf8_decode($identifier);
+        $membership = utf8_decode($membership);
 
-        /**
-         * Replace "CAS-USER-ID" below with the unique ID returned by the CAS server of a user
-         * who should be directed into CaptiveResponse to work on a campaign.
-         * This is a dummy API response.
-         */
-        if($id == 'CAS-USER-ID') { 
-        	$return = 1;
-        }
+        $memberships = explode('|', $membership);
+
+        $intercept = $this->CampaignManager->hasCampaigns($identifier, $memberships);
 
         $this->set(array(
-            'return' => $return,
-            '_serialize' => array('return')
+            'intercept' => $intercept,
+            '_serialize' => array('intercept')
         ));
 
     }
+    
 }
