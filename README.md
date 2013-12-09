@@ -25,4 +25,4 @@ Installation will be eventually be performed through a web self-install process,
 All routes except the API view are currently directed to CAS for authentication.
 
 API call example:
-```$URL-TO-INSTALL/api/identifier/membership```, where "identifier" is the principal identifier and "membership" is a comma-separated list of membership definitions. Both values are URL-encoded. Returns 1 (to say redirect the user to the CaptiveResponse portal) or 0 (to proceed as usual).
+```$URL-TO-INSTALL/api/view/identifier/membership```, where "identifier" is the principal identifier and "membership" is a "|"-separated list of membership definitions. Both values are URL-encoded. Returns 1 (to say redirect the user to the CaptiveResponse portal) or 0 (to proceed as usual).
