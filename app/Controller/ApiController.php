@@ -23,7 +23,7 @@ class ApiController extends AppController {
 
         $memberships = explode('|', $membership);
 
-        $intercept = $this->CampaignManager->hasCampaigns($identifier, $memberships);
+        $intercept = $this->CampaignManager->userHasCampaigns($identifier, $memberships);
 
         $this->set(array(
             'intercept' => $intercept,
