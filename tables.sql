@@ -42,7 +42,7 @@ CREATE TABLE `user_roles`(
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
-CREATE TABLE `campaign_roles`(
+CREATE TABLE `campaigns_user_roles`(
 	`id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`campaign_id` SMALLINT UNSIGNED NOT NULL, 
 	`user_role_id` TINYINT UNSIGNED NOT NULL, 

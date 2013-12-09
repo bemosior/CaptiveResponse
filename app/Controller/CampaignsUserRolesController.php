@@ -1,21 +1,21 @@
 <?php
 
 
-class CampaignRolesController extends AppController {
+class CampaignsUserRolesController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter(); 
     }
 
     public function index() {
-        $this->CampaignRole->recursive = 0;
-        $this->set('campaign_roles', $this->paginate());
+        $this->CampaignsUserRole->recursive = 0;
+        $this->set('campaigns_user_roles', $this->paginate());
     }
 
     public function view($id = null) {
-        $this->CampaignRole->id = $id;
-        if (!$this->CampaignRole->exists()) {
-            throw new NotFoundException(__('Invalid campaign_role'));
+        $this->CampaignsUserRole->id = $id;
+        if (!$this->CampaignsUserRole->exists()) {
+            throw new NotFoundException(__('Invalid campaigns_user_role'));
         }
 
         //Retrieve campaigns for pre-population of FK "campaign_id"
@@ -26,17 +26,17 @@ class CampaignRolesController extends AppController {
         $this->loadModel('UserRole');
         $this->set('userRoles', $this->UserRole->find('list'));
 
-        $this->request->data = $this->CampaignRole->read(null, $id);
+        $this->request->data = $this->CampaignsUserRole->read(null, $id);
     }
 
     public function add() {
         if ($this->request->is('post')) {
-            $this->CampaignRole->create();
-            if ($this->CampaignRole->save($this->request->data)) {
-                $this->Session->setFlash(__('The campaign_role has been saved'));
+            $this->CampaignsUserRole->create();
+            if ($this->CampaignsUserRole->save($this->request->data)) {
+                $this->Session->setFlash(__('The campaigns_user_role has been saved'));
                 return $this->redirect(array('action' => 'index'));
             }
-            $this->Session->setFlash(__('The campaign_role could not be saved. Please, try again.'));
+            $this->Session->setFlash(__('The campaigns_user_role could not be saved. Please, try again.'));
         }
 
         //Retrieve campaigns for pre-population of FK "campaign_id"
@@ -49,10 +49,10 @@ class CampaignRolesController extends AppController {
     }
 
     public function edit($id = null) {
-        $this->CampaignRole->id = $id;
+        $this->CampaignsUserRole->id = $id;
 
-        if (!$this->CampaignRole->exists()) {
-            throw new NotFoundException(__('Invalid campaign_role'));
+        if (!$this->CampaignsUserRole->exists()) {
+            throw new NotFoundException(__('Invalid campaigns_user_role'));
         }
 
         //Retrieve campaigns for pre-population of FK "campaign_id"
@@ -64,29 +64,29 @@ class CampaignRolesController extends AppController {
         $this->set('userRoles', $this->UserRole->find('list'));
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->CampaignRole->save($this->request->data)) {
-                $this->Session->setFlash(__('The campaign_role has been saved'));
+            if ($this->CampaignsUserRole->save($this->request->data)) {
+                $this->Session->setFlash(__('The campaigns_user_role has been saved'));
                 return $this->redirect(array('action' => 'index'));
             }
-            $this->Session->setFlash(__('The campaign_role could not be saved. Please, try again.'));
+            $this->Session->setFlash(__('The campaigns_user_role could not be saved. Please, try again.'));
         } else {
 
-            $this->request->data = $this->CampaignRole->read(null, $id);
+            $this->request->data = $this->CampaignsUserRole->read(null, $id);
         }
     }
 
     public function delete($id = null) {
         $this->request->onlyAllow('post');
 
-        $this->CampaignRole->id = $id;
-        if (!$this->CampaignRole->exists()) {
-            throw new NotFoundException(__('Invalid campaign_role'));
+        $this->CampaignsUserRole->id = $id;
+        if (!$this->CampaignsUserRole->exists()) {
+            throw new NotFoundException(__('Invalid campaigns_user_role'));
         }
-        if ($this->CampaignRole->delete()) {
-            $this->Session->setFlash(__('CampaignRole deleted'));
+        if ($this->CampaignsUserRole->delete()) {
+            $this->Session->setFlash(__('CampaignsUserRole deleted'));
             return $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('CampaignRole was not deleted'));
+        $this->Session->setFlash(__('CampaignsUserRole was not deleted'));
         return $this->redirect(array('action' => 'index'));
     }
 }
