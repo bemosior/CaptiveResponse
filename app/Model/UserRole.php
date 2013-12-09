@@ -5,6 +5,10 @@ class UserRole extends AppModel {
 
     public $displayField = 'local_name';
 
+    public $hasMany = array(
+        'CampaignsUserRole'
+    );
+
     public $validate = array(
         'local_name' => array(
             'required'          => true,

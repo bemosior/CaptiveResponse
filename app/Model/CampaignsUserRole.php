@@ -3,6 +3,10 @@ App::uses('AuthComponent', 'Controller/Component');
 
 class CampaignsUserRole extends AppModel {
 
+    public $belongsTo = array(
+        'Campaign', 'UserRole'
+    );
+
     public $validate = array(
         'campaign_id' => array(
             'required'          => true,

@@ -2,6 +2,11 @@
 App::uses('AuthComponent', 'Controller/Component');
 
 class Campaign extends AppModel {
+
+    public $hasMany = array(
+        'CampaignsUserRole'
+    );
+
     public $validate = array(
         'title' => array(
             'required'          => true,
