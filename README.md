@@ -1,7 +1,9 @@
-CaptiveResponse
+Captive Response
 ===============
 
 Captive Response is a web application with the purpose of delivering informational materials to and requiring an appropriate response from an organization's internal users. Combined with other single sign-on components, Captive Response can force additional user interaction during the user authentication process. Use cases include Acceptable Use Policies, training programs, and surveys.
+
+Captive Response is currently designed for use with Jasig CAS configured with the "attributeRepository" bean.
 
 Requirements
 -------------------------
@@ -22,5 +24,5 @@ Installation will be eventually be performed through a web self-install process,
 
 All routes except the API view are currently directed to CAS for authentication.
 
-API call example (based on current non-functional code):
-```$URL-TO-INSTALL/api/CAS-USER-ID``` will return 1, while ```$URL-TO-INSTALL/api/SOME-USER``` and any other value will return 0.
+API call example:
+```$URL-TO-INSTALL/api/identifier/membership```, where "identifier" is the principal identifier and "membership" is a comma-separated list of membership definitions. Both values are URL-encoded. Returns 1 (to say redirect the user to the CaptiveResponse portal) or 0 (to proceed as usual).
