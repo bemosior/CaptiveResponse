@@ -14,7 +14,7 @@
     <tr>
         <td>
             <?php echo $this->Html->link($campaigns_user_role['CampaignsUserRole']['id'],
-                array('controller' => 'campaignRoles', 'action' => 'view', $campaigns_user_role['CampaignsUserRole']['id'])); ?>
+                array('controller' => 'campaignsUserRoles', 'action' => 'view', $campaigns_user_role['CampaignsUserRole']['id'])); ?>
         </td>
         <td><?php echo $campaigns_user_role['CampaignsUserRole']['campaign_id']; ?></td>
 
