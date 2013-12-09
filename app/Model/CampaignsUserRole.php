@@ -1,7 +1,7 @@
 <?php
 App::uses('AuthComponent', 'Controller/Component');
 
-class CampaignRole extends AppModel {
+class CampaignsUserRole extends AppModel {
 
     public $validate = array(
         'campaign_id' => array(
