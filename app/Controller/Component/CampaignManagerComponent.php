@@ -44,7 +44,7 @@ class CampaignManagerComponent extends Component {
 
         //Complicated join to support HABTM nature of the Campaigns-UserRoles models.
         //Checks for active campaigns applicable to the user's memberships
-        $availableCampaigns = $campaigns->find('first', array(
+        $availableCampaigns = $campaigns->find('all', array(
             'joins' => array(
                array('table' => 'campaigns_user_roles',
                    'alias' => 'CampaignUserRoles',
@@ -63,9 +63,14 @@ class CampaignManagerComponent extends Component {
             ),        
             'conditions' => array(
                 'Campaigns.active' => true,
+                'NOW() BETWEEN Campaigns.start_time AND Campaigns.stop_time',
                 'UserRoles.id' => $memberships,
+
             ),
         ));
+
+        error_log("Relevant Campaigns: " . count($availableCampaigns));
+        print_r($availableCampaigns);
 
         if(count($availableCampaigns) > 0) {
             return 1;
