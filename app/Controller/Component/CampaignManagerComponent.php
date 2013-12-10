@@ -26,7 +26,7 @@ class CampaignManagerComponent extends Component {
             array_push($memberships, $role['UserRole']['id']);
         }
 
-        if ($this->roleHasCampaigns($memberships)) {
+        if ($this->getCampaigns($identifier, $memberships)) {
             return 1;
         }
 
@@ -37,7 +37,7 @@ class CampaignManagerComponent extends Component {
     /**
      * Determines if memberships have outstanding campaigns.
      */
-    public function roleHasCampaigns($memberships) {
+    public function getCampaigns($identifier, $memberships) {
 
         //Load the Campaigns model
         $campaigns = ClassRegistry::init('Campaigns');
@@ -69,10 +69,13 @@ class CampaignManagerComponent extends Component {
             ),
         ));
 
+        //Check user's attempts
+        // --> Code
+
         error_log("Relevant Campaigns: " . count($availableCampaigns));
 
         if(count($availableCampaigns) > 0) {
-            return 1;
+            return $availableCampaigns;
         }
 
         return 0;
