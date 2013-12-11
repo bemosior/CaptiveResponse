@@ -1,3 +1,4 @@
+<?php
 App::uses('AuthComponent', 'Controller/Component');
 
 class User extends AppModel {
@@ -8,10 +9,10 @@ class User extends AppModel {
                 'message' => 'A username is required'
             )
         ),
-        'email' => array(
+        'membership' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'An email address is required'
+                'message' => 'Memberships are required'
             )
         )
     );
