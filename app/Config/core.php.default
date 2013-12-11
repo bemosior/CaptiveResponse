@@ -386,3 +386,6 @@ Cache::config('_cake_model_', array(
 Configure::write('CAS.hostname', 'your.cas.server'); //CAS server hostname    
 Configure::write('CAS.port', 443); 	//CAS server listening port    
 Configure::write('CAS.uri', 'cas'); //CAS server service    
+Configure::write('CAS.identifier.attribute', 'identifier'); //CAS attribute containing identifier info
+Configure::write('CAS.membership.attribute', 'membership'); //CAS attribute containing membership info
+Configure::write('CAS.membership.admin', 'CN=Captive Response Admins,OU=Admins,DC=org,DC=edu'); //Administrative group membership
