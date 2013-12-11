@@ -9,6 +9,18 @@ class CampaignManagerComponent extends Component {
      */
     public function userHasCampaigns($identifier, $memberships) {
 
+        if ($this->getCampaigns($identifier, $this->getRelevantMemberships($memberships))) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+
+    /**
+     *  Takes an array of external membership strings and finds matching internal memberships
+     */
+    public function getRelevantMemberships($memberships) {
         //Load the local user roles model for comparison
         $userRole = ClassRegistry::init('UserRole');
 
@@ -17,8 +29,6 @@ class CampaignManagerComponent extends Component {
             'conditions' => array('UserRole.external_name' => $memberships),
             'fields'=>array('id','local_name')
         ));
-
-        error_log('IDENTIFIER: ' . $identifier . ', MEMBERSHIPS: ' . count($relevantRoles));
         
         $memberships = array();
         foreach ($relevantRoles as $role) {
@@ -26,13 +36,8 @@ class CampaignManagerComponent extends Component {
             array_push($memberships, $role['UserRole']['id']);
         }
 
-        if ($this->getCampaigns($identifier, $memberships)) {
-            return 1;
-        }
-
-        return 0;
+        return $memberships;
     }
-
 
     /**
      * Determines if memberships have outstanding campaigns.
@@ -44,7 +49,7 @@ class CampaignManagerComponent extends Component {
 
         //Complicated join to support HABTM nature of the Campaigns-UserRoles models.
         //Checks for active campaigns applicable to the user's memberships
-        $availableCampaigns = $campaigns->find('first', array(
+        $availableCampaigns = $campaigns->find('all', array(
             'joins' => array(
                array('table' => 'campaigns_user_roles',
                    'alias' => 'CampaignUserRoles',
@@ -69,7 +74,7 @@ class CampaignManagerComponent extends Component {
             ),
         ));
 
-        //Check user's attempts
+        //Check user's campaign attempts
         // --> Code
 
         error_log("Relevant Campaigns: " . count($availableCampaigns));
