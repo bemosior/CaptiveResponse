@@ -66,8 +66,23 @@ class UsersController extends AppController {
     public function login() {
 
         if ($this->Auth->login()) {
-            //return $this->redirect($this->Auth->redirectUrl());
-            $this->set('username', $this->Auth->User('user_id'));
+            return $this->redirect($this->Auth->redirectUrl());
+        } else {
+            $this->Session->setFlash(
+                __('Username or password is incorrect'),
+                'default',
+                array(),
+                'auth'
+            );
+        }
+    }
+
+    public function admin_login() {
+
+        if ($this->Auth->login()) {
+        return $this->redirect(
+            array('controller' => 'Campaigns', 'action' => 'index')
+        );
 
         } else {
             $this->Session->setFlash(
@@ -77,17 +92,6 @@ class UsersController extends AppController {
                 'auth'
             );
         }
-
-/*        if ($this->Auth->login()) {
-                return $this->redirect($this->Auth->redirect());
-        }
-
-        $this->Auth->authenticate = array(
-            AuthComponent::ALL => array('userModel' => 'Member'),
-            'phpCAS'
-        );
-
-*/
     }
 
     public function logout() {
