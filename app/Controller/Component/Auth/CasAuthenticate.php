@@ -9,8 +9,9 @@ App::uses('BaseAuthenticate', 'Controller/Component/Auth');
 
 App::import('Vendor', 'CAS/CAS');
 
-class CasAuthenticate {
-    private $_Collection = NULL;
+class CasAuthenticate extends BaseAuthenticate {
+    
+    protected $_Collection = NULL;
 
     function __construct($collection, $settings) {
         $this->_Collection = $collection;
@@ -34,20 +35,14 @@ class CasAuthenticate {
 
     public function authenticate(CakeRequest $request, CakeResponse $response) {
         phpCAS::forceAuthentication();
-        return array('username' => phpCAS::getUser());
+        return array(
+            'username' => phpCAS::getAttribute(Configure::read('CAS.identifier.attribute')), 
+            'memberships' => phpCAS::getAttribute(Configure::read('CAS.membership.attribute'))
+        );
     }
 
-    public function getUser($request) {
-        return FALSE;
-        /* Not sure if this makes sense yet.
-
-            $username = env('PHP_AUTH_USER');
-        
-            if (empty($username)) {
-                return false;
-            }
-            return $this->_findUser($username);
-        */
+    public function getUser(CakeRequest $request) {
+        return false;
     }
 
     public function logout($user) {
