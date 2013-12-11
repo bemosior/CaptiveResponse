@@ -33,6 +33,11 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 /**
+ * Admin Route
+ */
+    Router::connect('/admin/:controller/:action/*', array('admin' => true, 'prefix' => 'admin', 'controller' => 'pages'));
+
+/**
  * CAS User Campaign Status API
  */
 	Router::mapResources('api');
