@@ -7,12 +7,16 @@ class CampaignsController extends AppController {
         parent::beforeFilter(); 
     }
 
-    public function index() {
+    public function isAuthorized($user) {
+        return parent::isAuthorized($user);
+    }
+
+    public function admin_index() {
         $this->Campaign->recursive = 0;
         $this->set('campaigns', $this->paginate());
     }
 
-    public function view($id = null) {
+    public function admin_view($id = null) {
         $this->Campaign->id = $id;
         if (!$this->Campaign->exists()) {
             throw new NotFoundException(__('Invalid campaign'));
@@ -21,7 +25,7 @@ class CampaignsController extends AppController {
         $this->request->data = $this->Campaign->read(null, $id);
     }
 
-    public function add() {
+    public function admin_add() {
         if ($this->request->is('post')) {
             $this->Campaign->create();
             if ($this->Campaign->save($this->request->data)) {
@@ -32,7 +36,7 @@ class CampaignsController extends AppController {
         }
     }
 
-    public function edit($id = null) {
+    public function admin_edit($id = null) {
         $this->Campaign->id = $id;
         if (!$this->Campaign->exists()) {
             throw new NotFoundException(__('Invalid campaign'));
@@ -48,7 +52,7 @@ class CampaignsController extends AppController {
         }
     }
 
-    public function delete($id = null) {
+    public function admin_delete($id = null) {
         $this->request->onlyAllow('post');
 
         $this->Campaign->id = $id;
