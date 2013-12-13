@@ -14,7 +14,7 @@ Requirements
 
 Project Status
 -------------------------
-CaptiveResponse is being actively developed for Shippensburg University of Pennsylvania, with a 1.0.0 completion goal of January 2014.
+CaptiveResponse is being actively developed for Shippensburg University of Pennsylvania, with a 1.0.0 completion goal of Summer 2014.
 
 See the [tentative development roadmap](https://github.com/bemosior/CaptiveResponse/wiki/Development-Roadmap) for more up-to-date information.
 
